@@ -21,18 +21,11 @@ resource "yandex_compute_instance" "nexus" {
 network_interface {
   subnet_id                = "e9bf75an81939s7c4ra0"
   nat                      = true
- // from_port                = 8080
- // to_port                  = 8080
- // protocol                 = "tcp"
 }
 
 metadata                   = {
   ssh-keys                 = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
 }
-
-// metadata {
-//   ssh-keys                 = "extor:${file("~/.ssh/id_rsa.pub")}"
-// }
 
 boot_disk {
   initialize_params {
@@ -57,10 +50,6 @@ memory                   = 2
 metadata                 = {
 ssh-keys                 = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
 }
-
-// metadata {
-// ssh-keys                 = "extor:${file("~/.ssh/id_rsa.pub")}"
-// }
 
 network_interface {
 subnet_id                = "e9bf75an81939s7c4ra0"
