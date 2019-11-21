@@ -1,0 +1,38 @@
+{
+  "builders": [
+    {
+      "type":                "yandex",
+      "token":               "AgAAAAA6Z18OAATuwaO9An87DESYlst1GNjFz-I",
+      "image_name":          "nexus-centos7",
+      "image_family":        "centos-7",
+      "source_image_family": "centos-7",
+      "subnet_id":           "e9bf75an81939s7c4ra0",
+      "use_ipv4_nat":        true,
+      "folder_id":           "b1gn51be88cofsgj0ncu",
+      "zone":                "ru-central1-a",
+      "ssh_username":        "centos"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "./auth/id_rsa.pub",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "file",
+      "source": "./install-nexus.sh",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "file",
+      "source": "./settings.xml",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "shell",
+      "inline": ["sudo bash /tmp/install-nexus.sh centos"]
+    }
+  ]
+}
