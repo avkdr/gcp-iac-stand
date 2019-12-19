@@ -1,64 +1,47 @@
-// Configure the Yandex.Cloud provider
-provider "yandex" {
-  token                    = "AgAAAAA6Z18OAATuwaO9An87DESYlst1GNjFz-I"
-  cloud_id                 = "b1g25cdqdulerbk46qn1"
-  folder_id                = "b1gn51be88cofsgj0ncu"
-  zone                     = "ru-central1-a"
+provider "google"       {
+  credentials              = "${file("../auth/key.json")}"
+  project                  = "helical-ranger-260511"
+  zone                   = "europe-west1-b"
 }
-
-// Create a new instance of Nexus
-resource "yandex_compute_instance" "nexus" {
-  name                     = "nexus"
-  folder_id                = "b1gn51be88cofsgj0ncu"
-  platform_id              = "standard-v1"
-  zone                     = "ru-central1-a"
-
-  resources                {
-  cores                    = 1
-  memory                   = 2
+resource "google_compute_instance" "apache" {
+  name                  = "gcp-centos7-apache"
+  machine_type          = "f1-micro"
+  network_interface     {
+    network             = "default"
+    access_config       {
+    }
   }
-
-network_interface {
-  subnet_id                = "e9bf75an81939s7c4ra0"
-  nat                      = true
-}
-
-metadata                   = {
-  ssh-keys                 = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
-}
-
-boot_disk {
+  boot_disk {
   initialize_params {
-  image_id                 = "fd830p4prsodpus5ssmr"
+             image      = "gcp-centos7-apache"
+    }
+}
+}
+resource "google_compute_instance" "jenkins" {
+  name                  = "jenkins-centos7-apache"
+  machine_type          = "f1-micro"
+  network_interface     {
+    network             = "default"
+    access_config       {
     }
   }
-
+  boot_disk {
+  initialize_params {
+             image      = "jenkins-centos7-apache"
+    }
 }
-
-// Create a new instance of Jenkins
-resource "yandex_compute_instance" "jenkins" {
-name                     = "jenkins"
-folder_id                = "b1gn51be88cofsgj0ncu"
-platform_id              = "standard-v1"
-zone                     = "ru-central1-a"
-
-resources                {
-cores                    = 1
-memory                   = 2
 }
-
-metadata                 = {
-ssh-keys                 = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
-}
-
-network_interface {
-subnet_id                = "e9bf75an81939s7c4ra0"
-nat                      = true
-}
-
-boot_disk {
-initialize_params {
-image_id                 = "fd8iqsp7avtrc09qbq76"
+resource "google_compute_instance" "nexus" {
+  name                  = "nexus-centos7-apache"
+  machine_type          = "f1-micro"
+  network_interface     {
+    network             = "default"
+    access_config       {
     }
   }
+  boot_disk {
+  initialize_params {
+            image      = "nexus-centos7-apache"
+  }
+}
 }

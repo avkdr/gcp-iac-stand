@@ -1,6 +1,6 @@
 {
   "variables": {
-      "account_file": "./auth/helical-ranger-260511-4e729cb924bf.json",
+      "account_file": "./auth/packer.json",
       "project_id": "helical-ranger-260511",
       "zone": "europe-west1-b",
       "username": "gcp"
@@ -9,13 +9,14 @@
   "builders": [
     {
       "type": "googlecompute",
-      "account_file": "./auth/helical-ranger-260511-4e729cb924bf.json",
+      "account_file": "./auth/packer.json",
       "project_id": "helical-ranger-260511",
       "source_image_family": "centos-7",
       "zone": "europe-west1-b",
       "image_name": "gcp-centos7-apache",
       "machine_type": "f1-micro",
-      "ssh_username": "gcp"
+      "ssh_username": "gcp",
+      "state_timeout": "7m"
     }
   ],
 

@@ -1,2 +1,2 @@
 # yandex-iac-stand
-Yandex Cloud, Terraform, Packer, Ansible, Jenkins, Nexus
+Google Cloud Platform, Terraform, Packer, Ansible, Jenkins, Nexus
