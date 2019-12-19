@@ -1,16 +1,21 @@
 {
+  "variables": {
+      "account_file": "./auth/helical-ranger-260511-4e729cb924bf.json",
+      "project_id": "helical-ranger-260511",
+      "zone": "europe-west1-b",
+      "username": "gcp"
+  },
+
   "builders": [
     {
-      "type":                "yandex",
-      "token":               "AgAAAAA6Z18OAATuwaO9An87DESYlst1GNjFz-I",
-      "image_name":          "nexus-centos7",
-      "image_family":        "centos-7",
+      "type": "googlecompute",
+      "account_file": "./auth/helical-ranger-260511-4e729cb924bf.json",
+      "project_id": "helical-ranger-260511",
       "source_image_family": "centos-7",
-      "subnet_id":           "e9bf75an81939s7c4ra0",
-      "use_ipv4_nat":        true,
-      "folder_id":           "b1gn51be88cofsgj0ncu",
-      "zone":                "ru-central1-a",
-      "ssh_username":        "centos"
+      "zone": "europe-west1-b",
+      "image_name": "nexus-centos7-apache",
+      "machine_type": "f1-micro",
+      "ssh_username": "gcp"
     }
   ],
 
@@ -26,13 +31,8 @@
       "destination": "/tmp/"
     },
     {
-      "type": "file",
-      "source": "./settings.xml",
-      "destination": "/tmp/"
-    },
-    {
       "type": "shell",
-      "inline": ["sudo bash /tmp/install-nexus.sh centos"]
+      "inline": ["sudo bash /tmp/install-nexus.sh gcp"]
     }
   ]
 }
